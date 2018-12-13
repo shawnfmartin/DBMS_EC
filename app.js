@@ -4,6 +4,8 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const api = require('./src/routes/api');
+const welcome = require('./src/routes/welcome');
+const youtube = require('./src/routes/youtube');
 
 let local_uri = 'mongodb://localhost/extracredit';
 let heroku_uri = 'mongodb://heroku_5lxsd1jq:pla3gi3m3q1k802i95kquta9sq@ds135382.mlab.com:35382/heroku_5lxsd1jq';
@@ -17,10 +19,12 @@ const connect = function (uri) {
 
 
 connect(heroku_uri)
-.then(() => {
-    app.use('/api', api);
+    .then(() => {
+        app.use('/', welcome);
+        app.use('/youtube', youtube);
+        app.use('/api', api);
 
-});
+    });
 
 
 
